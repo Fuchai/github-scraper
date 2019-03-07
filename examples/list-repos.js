@@ -30,7 +30,10 @@ function crawl_next() {
     } else {
       var url = data.split('\n')[0];
       var linesExceptFirst = data.split('\n').slice(1).join('\n');
-      fs.writeFile(NEXT_PAGE_LIST, linesExceptFirst);
+      fs.writeFile(NEXT_PAGE_LIST, linesExceptFirst,function(err, result) {
+          if(err) console.log('error', err);
+        }
+      );
     }
     if(url.indexOf('/dwyl?') > -1) { // org page
       gs(url, process_org_page);
